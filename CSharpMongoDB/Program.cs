@@ -13,23 +13,24 @@ namespace CSharpMongoDB
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter the address of the mongodb server, for example: mongodb://localhost:27017");
-            string stringConnection = Console.ReadLine();
             try
             {
-                MongoClient client = new MongoClient(stringConnection);
-                List<BsonDocument> listDatabase = client.ListDatabases().ToList();
+                int count = 1;
+                Console.WriteLine("***Connecting to mongodb://localhost:27017....***");
+                MongoClient client = new MongoClient("mongodb://localhost:27017");
+                List <BsonDocument> listDatabase = client.ListDatabases().ToList();
                
                 Console.WriteLine("***List of exiting Database***");
                 foreach (var item in listDatabase)
                 {
-                    Console.WriteLine(item["name"]);
+                    Console.WriteLine(count+": "+item["name"]);
+                    count++;
                 }
                 Console.ReadKey();
             }
             catch (Exception)
             {
-                Console.WriteLine("Incorrect address");
+                Console.WriteLine("***Incorrect address***");
             }
            
         }
